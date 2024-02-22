@@ -36,13 +36,13 @@ docker run --name my-postgres -p 5432:5432 -d my-postgres
 Create 
 
 ```
-yarn migrate create <NAME>
+yarn db:create <NAME>
 ```
 
 UP/DOWN
 
 ```
-export DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik
+export DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik?sslmode=disable
 yarn migrate up
 yarn migrate down
 ```
