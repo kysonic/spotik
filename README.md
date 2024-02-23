@@ -1,6 +1,7 @@
 # Spotik 
 
 This my simple project made for learning purposes, so how I think simple todo is not enough to test framework or new technology stack. Spotik it is kind of Spotify clone.
+Also it could be used as scaffolding with few enhancements - i18n, ORM instead pure PG.
 
 Stack: NextJS, Tailwind, Clerk, PostgreSQL (Without ORM for learning purposes)
 
@@ -43,8 +44,8 @@ UP/DOWN
 
 ```
 export DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik?sslmode=disable
-yarn migrate up
-yarn migrate down
+yarn db:up
+yarn db:down
 ```
 
 ## Clerk 

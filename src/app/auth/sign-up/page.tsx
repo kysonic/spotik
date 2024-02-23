@@ -1,7 +1,5 @@
-import { SignUp } from "@clerk/nextjs";
+import SignUpForm from '@/components/features/auth/sign-up/EmailPasswordSignUpForm';
 
 export default function LoginPage() {
-  return (
-    <SignUp />
-  );
+  return <SignUpForm />;
 }

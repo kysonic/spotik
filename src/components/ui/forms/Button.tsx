@@ -1,12 +1,22 @@
-export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+import Loader from '@/components/ui/progress/Loader';
 
-export default function Button({ children, type = 'submit' }: ButtonProps) {
+export type ButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {
+  isLoading?: boolean;
+};
+
+export default function Button({
+  children,
+  type = 'submit',
+  isLoading,
+  disabled,
+  ...props
+}: ButtonProps) {
   return (
-    <button
-      className="mt-2 mx-auto rounded w-[100px] h-[40px] xs:w-full bg-blue-300 uppercase text-white hover:bg-blue-400"
-      type={type}
-    >
-      {children}
+    <button className="btn btn-primary" disabled={disabled || isLoading} type={type} {...props}>
+      {isLoading ? <Loader /> : children}
     </button>
   );
 }

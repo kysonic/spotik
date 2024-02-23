@@ -3,5 +3,5 @@ export type AuthLayoutProps = Readonly<{
 }>;
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  return <div className="flex justify-center items-center min-w-full min-h-screen bg-gray-100">{children}</div>;
+  return <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0 bg-gray-50">{children}</div>;
 }
