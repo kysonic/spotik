@@ -4,39 +4,46 @@ import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@/components/ui/forms/Button';
 import FormCard from '@/components/ui/forms/FormCard';
-import { signUpSchema, SignUpSchema } from '@/validation/auth';
+import { signInSchema, SignInSchema } from '@/validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormInput from '@/components/forms/FormInput';
 import Error from '@/components/ui/typography/Error';
 import Link from 'next/link';
+import { useSignIn } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 export default function EmailPasswordSignInForm() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { control, handleSubmit, reset, setFocus } = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+  const { control, handleSubmit, reset, setFocus } = useForm<SignInSchema>({
+    resolver: zodResolver(signInSchema),
   });
+  const router = useRouter();
+
+  const { isLoaded, signIn, setActive } = useSignIn();
 
   useEffect(() => {
     setFocus('email');
   }, []);
 
-  const onSubmit: SubmitHandler<SignUpSchema> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<SignInSchema> = async ({ email, password }) => {
     if (!isLoaded) {
       return;
     }
 
     try {
       setIsLoading(true);
-      await signUp?.create({
-        emailAddress: email,
+      const result = await await signIn.create({
+        identifier: email,
         password,
       });
-      console.log(2);
-      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
-      console.log(3);
+      if (result.status === 'complete') {
+        await setActive({ session: result.createdSessionId });
+        router.push('/');
+      } else {
+        setError(`Sign in failed with "${result.status}" status`);
+      }
       reset();
-      setStep(1);
     } catch (err: any) {
       setError(err.errors[0].message);
     } finally {
@@ -45,8 +52,8 @@ export default function EmailPasswordSignInForm() {
   };
 
   return (
-    <FormCard title="SPOTIK SIGN UP" onSubmit={handleSubmit(onSubmit)}>
-      <FormInput<SignUpSchema>
+    <FormCard title="SPOTIK SIGN IN" onSubmit={handleSubmit(onSubmit)}>
+      <FormInput<SignInSchema>
         name="email"
         type="email"
         control={control}
@@ -54,7 +61,7 @@ export default function EmailPasswordSignInForm() {
         placeholder="Enter your email"
         required
       />
-      <FormInput<SignUpSchema>
+      <FormInput<SignInSchema>
         name="password"
         type="password"
         control={control}
@@ -63,12 +70,12 @@ export default function EmailPasswordSignInForm() {
         required
       />
       {error && <Error>{error}</Error>}
-      <Link href="/auth/sign-in" className="text text-xs block mt-0 underline">
-        Sign in
+      <Link href="/auth/sign-up" className="text text-xs block mt-0 underline">
+        Sign up
       </Link>
       <div className="flex justify-end">
         <Button disabled={!isLoaded} isLoading={isLoading}>
-          Sign Up
+          Sign In
         </Button>
       </div>
     </FormCard>
