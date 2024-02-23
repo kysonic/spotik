@@ -1,6 +1,9 @@
+import { use } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs';
+import { clerkClient } from "@clerk/nextjs/server";
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -10,11 +13,18 @@ export const metadata: Metadata = {
   description: 'Spotify clone for learning',
 };
 
+async function middleware() {
+  const user = auth();
+    
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  use(middleware());
+
   return (
     <ClerkProvider
       appearance={{
@@ -29,3 +39,5 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
+
+export const runtime = 'nodejs';

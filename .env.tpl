@@ -2,3 +2,4 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/auth/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/auth/sign-up
+DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik

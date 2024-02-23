@@ -1,5 +1,4 @@
-import pool from '@/db/pool';
-import { noRows } from '@/db/utils';
+import sql from '@/db/client';
 
 export type InsertUserArgs = {
   email: string;
@@ -9,22 +8,20 @@ export type InsertUserArgs = {
 };
 
 export type UpdateUserArgs = InsertUserArgs & {
-  id: number;
   updated_at: Date;
 };
 
 class UsersDao {
   static async find() {
-    const { rows } = (await pool?.query('SELECT * FROM users;')) ?? noRows;
+    const rows = await sql`SELECT * FROM users;`;
 
     return rows;
   }
 
   static async findById(id: number) {
-    const { rows } =
-      (await pool?.query('SELECT * FROM users WHERE id = $1;', [id])) ?? noRows;
+    const rows = await sql`SELECT * FROM users WHERE id = ${id};`;
 
-    return rows;
+    return rows[0];
   }
 
   static async insert({
@@ -33,45 +30,32 @@ class UsersDao {
     first_name,
     last_name,
   }: InsertUserArgs) {
-    const { rows } =
-      (await pool?.query(
-        'INSERT INTO users (email, external_id, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *;',
-        [email, external_id, first_name, last_name]
-      )) ?? noRows;
+    const rows =
+      await sql`INSERT INTO users (email, external_id, first_name, last_name) VALUES('${email}', '${external_id}', '${first_name}', '${last_name}')`;
 
     return rows[0];
   }
 
-  static async update({
-    id,
-    email,
-    external_id,
-    first_name,
-    last_name,
-  }: UpdateUserArgs) {
-    const { rows } =
-      (await pool.query(
-        'UPDATE users SET email = $2, external_id = $3, first_name = $4, last_name = $5  WHERE id = $1 RETURNING *;',
-        [id, email, external_id, first_name, last_name]
-      )) ?? noRows;
+  static async update(
+    id: number,
+    { email, external_id, first_name, last_name, updated_at }: UpdateUserArgs
+  ) {
+    const rows =
+      await sql`UPDATE users SET email = '${email}', external_id = '${external_id}', first_name = '${first_name}', last_name = '${last_name}', updated_at = ${updated_at} WHERE id = ${id} RETURNING *`;
 
     return rows[0];
   }
 
   static async delete(id: number) {
-    const { rows } =
-      (await pool.query('DELETE FROM users WHERE id = $1 RETURNING *;', [
-        id,
-      ])) ?? noRows;
+    const rows = await sql`DELETE FROM users WHERE id = ${id} RETURNING *;`;
 
     return rows[0];
   }
 
   static async count() {
-    const { rows } =
-      (await pool.query('SELECT COUNT(*) FROM users;')) ?? noRows;
+    const rows = await sql`SELECT COUNT(*) FROM users;`;
 
-    return parseInt(rows[0]?.count);
+    return parseInt(rows[0].count);
   }
 }
 
