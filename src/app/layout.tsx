@@ -2,9 +2,8 @@ import { use } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
-import { auth } from '@clerk/nextjs';
-import { clerkClient } from "@clerk/nextjs/server";
 import './globals.css';
+import { authMiddleware } from '@/middlewares/authMiddleware';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,17 +12,14 @@ export const metadata: Metadata = {
   description: 'Spotify clone for learning',
 };
 
-async function middleware() {
-  const user = auth();
-    
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  use(middleware());
+  // NextJS middleware works only on edge, that means we cannot use our postgre client, I don't want to use their @vercel/postgre
+  // In this case we are going to use middlewares in layout... 
+  use(authMiddleware());
 
   return (
     <ClerkProvider

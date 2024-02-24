@@ -24,24 +24,20 @@ class UsersDao {
     return rows[0];
   }
 
-  static async insert({
-    email,
-    external_id,
-    first_name,
-    last_name,
-  }: InsertUserArgs) {
-    const rows =
-      await sql`INSERT INTO users (email, external_id, first_name, last_name) VALUES('${email}', '${external_id}', '${first_name}', '${last_name}')`;
+  static async insert(fields: InsertUserArgs) {
+    const rows = await sql`INSERT INTO users ${sql(
+      fields,
+      Object.keys(fields) as unknown as Readonly<keyof typeof fields>
+    )} RETURNING *`;
 
     return rows[0];
   }
 
-  static async update(
-    id: number,
-    { email, external_id, first_name, last_name, updated_at }: UpdateUserArgs
-  ) {
-    const rows =
-      await sql`UPDATE users SET email = '${email}', external_id = '${external_id}', first_name = '${first_name}', last_name = '${last_name}', updated_at = ${updated_at} WHERE id = ${id} RETURNING *`;
+  static async update(id: number, fields: UpdateUserArgs) {
+    const rows = await sql`UPDATE users SET ${sql(
+      fields,
+      Object.keys(fields) as unknown as Readonly<keyof typeof fields>
+    )} WHERE id = ${id} RETURNING *`;
 
     return rows[0];
   }
