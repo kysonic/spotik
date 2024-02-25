@@ -28,4 +28,24 @@
   .btn-error {
     @apply bg-red-500 hover:bg-red-700 focus:ring-red-300 disabled:bg-red-500;
   }
+
+  .main-layout {
+    display: grid;
+
+    grid-template-areas:
+      'sidenav nav nav'
+      'sidenav content content'
+      'library content content'
+      'player player player';
+
+    grid-template-columns: 1fr 3fr 3fr;
+    grid-template-rows: 80px 160px 1fr 80px;
+  }
+
+  @media (max-width: theme('screens.md')) {
+    .main-layout {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
