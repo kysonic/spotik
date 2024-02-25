@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
-import { authMiddleware } from '@/middlewares/authMiddleware';
+// import { authMiddleware } from '@/middlewares/authMiddleware';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +19,8 @@ export default function RootLayout({
 }>) {
   // NextJS middleware works only on edge, that means we cannot use our postgre client, I don't want to use their @vercel/postgre
   // In this case we are going to use middlewares in layout... 
-  use(authMiddleware());
+  // Let's use webhooks
+  // use(authMiddleware());
 
   return (
     <ClerkProvider

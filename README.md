@@ -57,3 +57,14 @@ and provide credentials in .env.local
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 ```
+
+## Clerk webhooks 
+
+To synchronize data between clerk and our database we are going to use webhooks. Problem is clerk doesn't forward request to 
+localhost in dev mode (like stripe for example), so we could use ngrok to forward our localhost into the network
+
+```
+ngrok http 3000 --verify-webhook clerk --verify-webhook-secret <WEBHOOK_SECRET>
+```
+
+Downside of this approach - you have to update url in clerk dashboard every run, until you pay for pro plan 
