@@ -2,6 +2,7 @@ import Library from '@/components/features/library/Library';
 import SearchNav from '@/components/features/navigation/search-nav/SearchNav';
 import TopNav from '@/components/features/navigation/top-nav/TopNav';
 import Player from '@/components/features/player/Player';
+import { auth } from '@clerk/nextjs';
 
 export type MainLayoutProps = Readonly<{
   children: React.ReactNode;

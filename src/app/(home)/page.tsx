@@ -1,40 +1,14 @@
-import VCard from '@/components/ui/cards/VCard';
+import getCurrentUser from '@/actions/users/getCurrentUser';
+import getExternalId from '@/actions/users/getExternalId';
+import SelectGenres from '@/components/features/user/genres/SelectGenres';
 
-export default function Home() {
+export default async function Home() {
+  const externalId = getExternalId();
+  const user = await getCurrentUser(externalId);
+
   return (
     <main className="h-full p-4">
-      <div className="flex flex-wrap gap-2 justify-center md:justify-normal">
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-        <VCard title="Discover Weekly" cover="https://loremflickr.com/160/160" subtitle="Your weekly mix tape of fresh music. Abrwal..." />
-      </div>
+      {user && !user.genres && <SelectGenres />}
     </main>
   );
 }

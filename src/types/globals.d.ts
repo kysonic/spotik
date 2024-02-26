@@ -6,4 +6,8 @@ declare global {
       externalId?: number;
     };
   }
+
+  interface JwtPayload {
+    externalId?: number;
+  }
 }

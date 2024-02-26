@@ -68,3 +68,12 @@ ngrok http 3000 --verify-webhook clerk --verify-webhook-secret <WEBHOOK_SECRET>
 ```
 
 Downside of this approach - you have to update url in clerk dashboard every run, until you pay for pro plan 
+
+## Seeds 
+
+To seed database, please execute following command 
+
+```
+export DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik?sslmode=disable
+NAME=init yarn db:seed
+```

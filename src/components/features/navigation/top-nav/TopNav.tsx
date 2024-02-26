@@ -5,7 +5,7 @@ export default function TopNav() {
   return (
     <div className="flex justify-between items-center h-full px-4 py-2">
       <GlobalNavigation />
-      <UserButton />
+      <UserButton afterSignOutUrl="/" />
     </div>
   )
 }

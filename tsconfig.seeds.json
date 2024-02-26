@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "ts-node": {
+    "moduleTypes": {
+      "migrations": "cjs"
+    }
+  },
+  "include": ["migrations"],
+  "exclude": ["src"]
+}
