@@ -1,8 +1,15 @@
-import sql from '@/db/client';
 import { faker } from '@faker-js/faker';
+import ArtistsDao from '../dao/Artists';
 
 async function run() {
-  await sql`SELECT (1 + 1);`;
+  const artistsCount = Math.floor(Math.random() * 20);
+  for (let i = 0; i < artistsCount; i++) {
+    const artist = await ArtistsDao.insert({
+      nickname: faker.person.fullName(),
+      about: faker.person.bio(),
+      career_start: faker.date.birthdate().toDateString(),
+    });
+  }
 }
 
 run().then(() => {

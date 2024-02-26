@@ -2,10 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "Node",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "moduleResolution": "Node"
   },
   "ts-node": {
     "moduleTypes": {

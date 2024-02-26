@@ -1,4 +1,4 @@
-import sql from '@/db/client';
+import sql from '../client';
 
 export type InsertUserArgs = {
   email: string;
