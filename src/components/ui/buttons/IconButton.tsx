@@ -1,10 +1,11 @@
 export type IconButtonProps = {
   children: React.ReactNode;
+  bg?: string;
 };
 
-export default function IconButton({ children }: IconButtonProps) {
+export default function IconButton({ children, bg = 'bg-gray-200 hover:bg-gray-300' }: IconButtonProps) {
   return (
-    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 cursor-pointer hover:bg-gray-300">
+    <div role="button" className={`flex items-center justify-center w-8 h-8 rounded-full  cursor-pointer ${bg}`}>
       {children}
     </div>
   );

@@ -6,7 +6,7 @@ import PlusIcon from '@/components/ui/icons/PlusIcon';
 
 export default function Library() {
   return (
-    <div className="h-full bg-slate-100 rounded-md p-4">
+    <div className="h-full p-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center justify-start">
           <LibraryIcon />
