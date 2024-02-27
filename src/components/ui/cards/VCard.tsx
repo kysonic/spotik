@@ -20,7 +20,7 @@ export default function VCard({ cover, title, Icon, subtitle }: VCardProps) {
           />
         )}
         {Icon && (
-          <div className="w-10 h-10 flex items-center justify-center">
+          <div className="w-[140px] h-[140px] flex items-center justify-center">
             {Icon}
           </div>
         )}

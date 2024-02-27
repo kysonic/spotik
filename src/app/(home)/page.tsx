@@ -1,5 +1,6 @@
 import getCurrentUser from '@/actions/users/getCurrentUser';
 import getExternalId from '@/actions/users/getExternalId';
+import Mixes from '@/components/features/mixes/Mixes';
 import SelectGenres from '@/components/features/user/genres/SelectGenres';
 
 export default async function Home() {
@@ -9,6 +10,7 @@ export default async function Home() {
   return (
     <main className="h-full p-4">
       {user && !user.genres && <SelectGenres />}
+      {user && user.genres && <Mixes />}
     </main>
   );
 }
