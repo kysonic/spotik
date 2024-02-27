@@ -1,4 +1,4 @@
-import sql from '../client';
+import sql from './client';
 
 export type InsertUserArgs = {
   email: string;
@@ -7,8 +7,8 @@ export type InsertUserArgs = {
   last_name?: string;
 };
 
-export type UpdateUserArgs = InsertUserArgs & {
-  updated_at: Date;
+export type UpdateUserArgs = Partial<InsertUserArgs> & {
+  updated_at?: Date;
 };
 
 class UsersDao {

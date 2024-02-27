@@ -1,4 +1,7 @@
+'use client';
+
 import Loader from '@/components/ui/progress/Loader';
+import { useFormStatus } from 'react-dom';
 
 export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -14,8 +17,15 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
+  const { pending } = useFormStatus();
+
   return (
-    <button className="btn btn-primary" disabled={disabled || isLoading} type={type} {...props}>
+    <button
+      className="btn btn-primary"
+      disabled={disabled || isLoading || pending}
+      type={type}
+      {...props}
+    >
       {isLoading ? <Loader /> : children}
     </button>
   );

@@ -1,4 +1,4 @@
-import sql from '../client';
+import sql from './client';
 
 export type InsertSongsArgs = {
   title: string;
@@ -53,6 +53,12 @@ class SongsDao {
     const rows = await sql`SELECT COUNT(*) FROM songs;`;
 
     return parseInt(rows[0].count);
+  }
+
+  static async getGenres() {
+    const rows = await sql`SELECT DISTINCT UNNEST(genres) FROM songs;`;
+
+    return rows;
   }
 }
 

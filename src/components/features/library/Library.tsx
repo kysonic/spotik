@@ -19,7 +19,7 @@ export default function Library() {
       <div className="mt-4 flex flex-col gap-2">
         <HCard
           title="Liked Songs"
-          Icon={<HeartIcon />}
+          Icon={<HeartIcon className="text-white" />}
           subtitle="Playlist 100 songs"
         />
         <HCard

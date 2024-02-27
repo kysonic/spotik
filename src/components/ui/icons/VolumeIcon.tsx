@@ -1,7 +1,10 @@
-export default function VolumeIcon() {
+import { twMerge } from 'tailwind-merge';
+import { StyledIconProps } from './StyledIcon';
+
+export default function VolumeIcon({ className }: StyledIconProps) {
   return (
     <svg
-      className="w-6 h-6 text-gray-800 dark:text-white"
+      className={twMerge('w-6 h-6 text-gray-800', className)}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
