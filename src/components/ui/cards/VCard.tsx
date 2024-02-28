@@ -8,7 +8,7 @@ export type VCardProps = {
 };
 export default function VCard({ cover, title, Icon, subtitle }: VCardProps) {
   return (
-    <div className="flex flex-col justify-start items-center p-4 bg-purple-800 bg-opacity-10 rounded-md max-w-[160px]">
+    <div className="flex flex-col justify-start items-center p-4 bg-purple-800 bg-opacity-10 rounded-md max-w-[160px] hover:bg-opacity-20 transition-opacity">
       <div className="rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
         {cover && (
           <Image

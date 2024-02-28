@@ -1,17 +1,29 @@
 import sql from '../client';
+import { Album } from './Albums';
+import { Artist } from './Artists';
 
-export type InsertSongsArgs = {
+export type Song = {
+  id: number;
   title: string;
   length?: number;
   plays_count?: number;
   genres?: string[];
   album_id?: number;
+  cover?: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
-export type UpdateSongsArgs = InsertSongsArgs & {
-  updated_at: Date;
+export type InsertSongsArgs = Omit<Song, 'id' | 'created_at' | 'updated_at'>;
+
+export type UpdateSongsArgs = Partial<InsertSongsArgs> & {
+  updated_at?: Date;
 };
 
+export type ReleaseSongs = (Song & {
+  artist: Artist['nickname'];
+  album: Album['title'];
+})[];
 class SongsDao {
   static async find() {
     const rows = await sql`SELECT * FROM songs;`;
@@ -59,6 +71,16 @@ class SongsDao {
     const rows = await sql`SELECT DISTINCT UNNEST(genres) FROM songs;`;
 
     return rows;
+  }
+
+  static async getReleases({ genres = [] }: { genres: string[] }) {
+    const rows = await sql`
+      SELECT s.*, al.title as album, nickname as artist FROM songs as s 
+      LEFT JOIN albums as al ON al.id = s.album_id
+      LEFT JOIN artists as ar ON ar.id = al.artist_id
+      WHERE genres && ${genres} ORDER BY s.updated_at DESC LIMIT 30;`;
+
+    return rows as unknown as ReleaseSongs;
   }
 }
 

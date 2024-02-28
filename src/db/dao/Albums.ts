@@ -1,13 +1,19 @@
 import sql from '../client';
 
-export type InsertAlbumsArgs = {
+export type Album = {
+  id: number;
   title: string;
   release_date?: string;
   artist_id?: number;
+  cover?: string;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
-export type UpdateAlbumsArgs = InsertAlbumsArgs & {
-  updated_at: Date;
+export type InsertAlbumsArgs = Omit<Album, 'id' | 'created_at' | 'updated_at'>;
+
+export type UpdateAlbumsArgs = Partial<InsertAlbumsArgs> & {
+  updated_at?: Date;
 };
 
 class AlbumsDao {

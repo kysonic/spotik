@@ -9,7 +9,7 @@ export type ChipProps = {
 
 export default function Chip({ children, Icon, isActive, onClick }: ChipProps) {
   const className = twMerge(
-    'inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-800 bg-gray-300 rounded cursor-pointer hover:bg-gray-400',
+    'inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-800 bg-gray-300 rounded cursor-pointer hover:bg-gray-400 transition-colors',
     isActive ? 'bg-primary-300 hover:bg-primary-400 text-white' : ''
   );
 

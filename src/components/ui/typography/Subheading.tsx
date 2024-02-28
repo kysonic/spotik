@@ -1,9 +1,10 @@
+import { twMerge } from 'tailwind-merge';
+
 export type SubheadingPros = {
   children: React.ReactNode;
+  className?: string;
 };
 
-export default function Subheading({ children }: SubheadingPros) {
-  return (
-    <h4 className="subtitle">{children}</h4>
-  );
+export default function Subheading({ children, className }: SubheadingPros) {
+  return <h4 className={twMerge('subtitle', className)}>{children}</h4>;
 }

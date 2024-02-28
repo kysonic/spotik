@@ -12,6 +12,7 @@ async function run() {
       nickname: faker.person.fullName(),
       about: faker.person.bio(),
       career_start: faker.date.birthdate().toDateString(),
+      cover: faker.image.avatar(),
     });
 
     const ALBUMS = Math.floor(Math.random() * 8 + 1);
@@ -20,6 +21,7 @@ async function run() {
       const album = await AlbumsDao.insert({
         title: faker.music.songName(),
         release_date: faker.date.birthdate().toDateString(),
+        cover: faker.image.urlLoremFlickr(),
         artist_id: artist.id,
       });
 
@@ -33,6 +35,7 @@ async function run() {
           genres: Array.from({ length: Math.floor(Math.random() * 5 + 1) }).map(
             () => faker.music.genre().substring(0, 99)
           ),
+          cover: faker.image.urlLoremFlickr(),
           album_id: album.id,
         });
       }

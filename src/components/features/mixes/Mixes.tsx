@@ -8,10 +8,10 @@ export default function Mixes() {
     <div className="w-full h-full">
       <Greeting />
       <div className="mt-4">
-        <Link href="/fresh">
+        <Link href="/release-radar" className="inline-block">
           <VCard
-            title="Fresh songs"
-            subtitle="Fresh music from favorite artists and new songs special for you"
+            title="Release Radar"
+            subtitle="Catch all the latest music from favorite artists, plus new singles picked for you"
             Icon={<NewIcon className="w-10 h-10 text-white" />}
           />
         </Link>
