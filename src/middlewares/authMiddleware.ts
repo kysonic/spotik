@@ -1,6 +1,8 @@
 import { auth } from '@clerk/nextjs';
 import { clerkClient } from '@clerk/nextjs/server';
 import UsersDao from '@/db/dao/Users';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // TODO: Handle rejection and rollbacks
 export async function authMiddleware() {
@@ -22,6 +24,9 @@ export async function authMiddleware() {
       await clerkClient.users.updateUser(userId, {
         publicMetadata: { externalId: dbUser.id },
       });
+
+      revalidatePath('/');
+      redirect('/');
     }
   }
 }

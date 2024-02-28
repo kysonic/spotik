@@ -34,9 +34,7 @@ export default function EmailPasswordForm() {
         emailAddress: email,
         password,
       });
-      console.log(2);
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
-      console.log(3);
       reset();
       setStep(1);
     } catch (err: any) {

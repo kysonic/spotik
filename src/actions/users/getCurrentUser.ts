@@ -1,18 +1,25 @@
 'use server';
 import getCurrentUser from '@/db/commands/users/getCurrentUser';
 import { unstable_cache } from 'next/cache';
-import getExternalId from './getExternalId';
+import { auth } from '@clerk/nextjs';
 
-// export default getCurrentUser
-export default unstable_cache(
-  async () => {
-    const userId = getExternalId();
+const getCurrentUserAction = () => {
+  const { userId } = auth();
 
-    return getCurrentUser(userId);
-  },
-  ['current_user'],
-  {
-    tags: ['current_user'],
-    revalidate: 10,
+  if (!userId) {
+    return () => null;
   }
-);
+
+  console.log(userId, '<<<< Clerk user id');
+
+  return unstable_cache(
+    async () => getCurrentUser(userId),
+    ['current_user', userId.toString()],
+    {
+      tags: ['current_user'],
+      revalidate: 1,
+    }
+  );
+};
+
+export default getCurrentUserAction;

@@ -1,6 +1,7 @@
 import type { WebhookEvent } from '@clerk/clerk-sdk-node';
 import { clerkClient } from '@clerk/nextjs/server';
 import UsersDao from '@/db/dao/Users';
+import { revalidateTag } from 'next/cache';
 
 export async function POST(request: Request) {
   const evt = (await request.json()) as WebhookEvent;
@@ -14,10 +15,11 @@ export async function POST(request: Request) {
         first_name: clerkUser.first_name ?? '',
         last_name: clerkUser.last_name ?? '',
       });
-
       await clerkClient.users.updateUser(clerkUser.id, {
         publicMetadata: { externalId: dbUser.id },
       });
+
+      revalidateTag('current_user');
 
       return new Response('User created!');
   }

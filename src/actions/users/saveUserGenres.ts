@@ -1,9 +1,9 @@
 'use server';
 
 import updateUser from '@/db/commands/users/updateUser';
-import getExternalId from './getExternalId';
 import { saveUserGenresSchema } from '@/validation/user';
 import { revalidateTag } from 'next/cache';
+import { auth } from '@clerk/nextjs';
 
 export default async function saveUserGenres(
   prevState: any,
@@ -21,9 +21,9 @@ export default async function saveUserGenres(
     };
   }
 
-  const userId = getExternalId();
+  const { userId } = auth();
 
-  await updateUser(userId, {
+  await updateUser(userId!, {
     ...rawFormData,
     updated_at: new Date(),
   });

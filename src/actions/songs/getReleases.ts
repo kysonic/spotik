@@ -1,11 +1,15 @@
 'use server';
 import getReleases from '@/db/commands/songs/getReleases';
-import { revalidateTag, unstable_cache } from 'next/cache';
-import getExternalId from '../users/getExternalId';
+import { auth } from '@clerk/nextjs';
+import { unstable_cache } from 'next/cache';
 
 // export default getGenres;
 const getReleasesAction = () => {
-  const userId = getExternalId();
+  const { userId } = auth();
+
+  if (!userId) {
+    return () => [];
+  }
 
   return unstable_cache(
     async () => getReleases(userId),

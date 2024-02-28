@@ -7,8 +7,12 @@ import { getUserName } from '@/utils/user';
 import { countPlaylistLength, formatSongLength } from '@/utils/songs';
 
 export default async function ReleaseRadar() {
-  const user = await getCurrentUser();
+  const user = await getCurrentUser()();
   const releases = await getReleases()();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <main className="h-full">

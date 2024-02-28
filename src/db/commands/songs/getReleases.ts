@@ -3,8 +3,8 @@
 import SongsDao, { Song } from '@/db/dao/Songs';
 import UsersDao from '@/db/dao/Users';
 
-export default async function getReleases(id: number) {
-  const user = await UsersDao.findById(id);
+export default async function getReleases(id: string) {
+  const user = await UsersDao.findByExternalId(id);
 
   if (!user) {
     throw new Error('Cannot find user');
