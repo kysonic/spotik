@@ -2,7 +2,7 @@ import SkeletonRect from '../content/SkeletonRect';
 
 export default function PlaylistHero() {
   return (
-    <div className="flex gap-6 w-full p-4 bg-gradient-to-t from-purple-100 to-slate-100">
+    <div className="flex gap-6 w-full p-4 bg-gradient-to-t from-gray-100 to-slate-100">
       <div className="rounded-md bg-slate-400 animate-pulse">
         <div className="w-[140px] h-[140px] flex items-center justify-center"></div>
       </div>

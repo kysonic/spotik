@@ -20,7 +20,7 @@ export type UpdateSongsArgs = Partial<InsertSongsArgs> & {
   updated_at?: Date;
 };
 
-export type ReleaseSongs = (Song & {
+export type SongsWithArtistAndAlbum = (Song & {
   artist: Artist['nickname'];
   album: Album['title'];
 })[];
@@ -80,7 +80,17 @@ class SongsDao {
       LEFT JOIN artists as ar ON ar.id = al.artist_id
       WHERE genres && ${genres} ORDER BY s.updated_at DESC LIMIT 30;`;
 
-    return rows as unknown as ReleaseSongs;
+    return rows as unknown as SongsWithArtistAndAlbum;
+  }
+
+  static async getByGenre({ genre }: { genre: string }) {
+    const rows = await sql`
+    SELECT s.*, al.title as album, nickname as artist FROM songs as s 
+    LEFT JOIN albums as al ON al.id = s.album_id
+    LEFT JOIN artists as ar ON ar.id = al.artist_id
+    WHERE ${genre} = ANY(genres) ORDER BY s.plays_count DESC LIMIT 30;`;
+
+    return rows as unknown as SongsWithArtistAndAlbum;
   }
 }
 
