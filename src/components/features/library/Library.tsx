@@ -16,9 +16,11 @@ export default async function Library() {
           <LibraryIcon />
           <div className="ml-2 text text-lg pt-1">Your Library</div>
         </div>
-        <IconButton>
-          <PlusIcon />
-        </IconButton>
+        <Link href="/create-playlist">
+          <IconButton>
+            <PlusIcon />
+          </IconButton>
+        </Link>
       </div>
       <div className="mt-4 flex flex-col gap-2">
         <Link href="/liked">

@@ -1,8 +1,8 @@
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
-export type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+export type TextareaProps = React.DetailedHTMLProps<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
 > & {
   label?: string;
   error?: string;
@@ -10,7 +10,6 @@ export type InputProps = React.DetailedHTMLProps<
 };
 
 export default function Input({
-  type,
   placeholder,
   label,
   name,
@@ -18,7 +17,7 @@ export default function Input({
   error,
   className,
   ...rest
-}: InputProps) {
+}: TextareaProps) {
   return (
     <div className="flex flex-col gap-1">
       {label && (
@@ -26,11 +25,10 @@ export default function Input({
           {label} {required ? '*' : ''}
         </label>
       )}
-      <input
+      <textarea
         id={name}
         name={name}
         className={twMerge('input', className)}
-        type={type}
         placeholder={placeholder}
         required={required}
         aria-invalid={error ? 'true' : 'false'}

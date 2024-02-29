@@ -1,0 +1,23 @@
+-- migrate:up
+CREATE TABLE playlists (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE playlists_songs (
+  id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+  playlist_id INTEGER REFERENCES playlists(id) ON DELETE CASCADE,
+  song_id INTEGER REFERENCES songs(id) ON DELETE CASCADE,
+
+  UNIQUE(playlist_id, song_id)
+);
+
+-- migrate:down
+DROP TABLE playlists;
+DROP TABLE playlists_songs;
