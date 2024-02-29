@@ -10,8 +10,6 @@ const getCurrentUserAction = () => {
     return () => null;
   }
 
-  console.log(userId, '<<<< Clerk user id');
-
   return unstable_cache(
     async () => getCurrentUser(userId),
     ['current_user', userId.toString()],

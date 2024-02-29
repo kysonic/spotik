@@ -54,8 +54,9 @@ class UsersDao {
     return rows[0];
   }
 
-  static async delete(id: number) {
-    const rows = await sql`DELETE FROM users WHERE id = ${id} RETURNING *;`;
+  static async delete(id: string) {
+    const rows =
+      await sql`DELETE FROM users WHERE external_id = ${id} RETURNING *;`;
 
     return rows[0];
   }

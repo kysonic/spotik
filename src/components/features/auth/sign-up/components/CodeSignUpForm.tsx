@@ -10,6 +10,7 @@ import FormInput from '@/components/forms/FormInput';
 import Error from '@/components/ui/typography/Error';
 import { useRouter } from 'next/navigation';
 import { SignUpFormContext } from '../EmailPasswordSignUpForm';
+import completeUserRegistration from '@/actions/users/completeUserRegistration';
 
 export default function CodeSignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +40,7 @@ export default function CodeSignUpForm() {
       }
       if (completeSignUp.status === 'complete') {
         await setActive({ session: completeSignUp.createdSessionId });
+        await completeUserRegistration();
         router.push('/');
       }
     } catch (err: any) {

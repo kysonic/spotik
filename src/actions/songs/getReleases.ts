@@ -16,7 +16,7 @@ const getReleasesAction = () => {
     ['releases', userId.toString()],
     {
       tags: ['releases'],
-      revalidate: 60 * 60 * 24,
+      revalidate: 1, // 60 * 60 * 24,
     }
   );
 };
