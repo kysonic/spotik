@@ -1,4 +1,5 @@
 import sql from '../client';
+import { SongWithArtistAndAlbum } from './Songs';
 
 export type Like = {
   id: number;
@@ -22,8 +23,13 @@ class LikesDao {
     return rows[0];
   }
 
-  static async fundUserSongs(id: number) {
-    const rows = await sql<Like[]>`SELECT * FROM likes WHERE user_id = ${id};`;
+  static async getUserSongs(id: number) {
+    const rows = await sql<(Like & SongWithArtistAndAlbum)[]>`
+    SELECT l.*, s.*, al.title as album, nickname as artist FROM likes AS l 
+    FULL JOIN songs as s ON s.id = l.song_id
+    LEFT JOIN albums as al ON al.id = s.album_id
+    LEFT JOIN artists as ar ON ar.id = al.artist_id
+    WHERE user_id = ${id} ORDER BY l.created_at DESC;`;
 
     return rows;
   }

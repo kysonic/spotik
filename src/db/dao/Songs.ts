@@ -21,10 +21,11 @@ export type UpdateSongsArgs = Partial<InsertSongsArgs> & {
   updated_at?: Date;
 };
 
-export type SongsWithArtistAndAlbum = (Song & {
+export type SongWithArtistAndAlbum = Song & {
   artist: Artist['nickname'];
   album: Album['title'];
-})[];
+};
+export type SongsWithArtistAndAlbum = SongWithArtistAndAlbum[];
 class SongsDao {
   static async find() {
     const rows = await sql<Song[]>`SELECT * FROM songs;`;

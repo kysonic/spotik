@@ -3,8 +3,12 @@ import HCard from '@/components/ui/cards/HCard';
 import HeartIcon from '@/components/ui/icons/HeartIcon';
 import LibraryIcon from '@/components/ui/icons/LibraryIcon';
 import PlusIcon from '@/components/ui/icons/PlusIcon';
+import getLikedSongsQuery from '@/queries/songs/getLikedSongs';
+import Link from 'next/link';
 
-export default function Library() {
+export default async function Library() {
+  const likedSongs = await getLikedSongsQuery()();
+
   return (
     <div className="h-full p-4">
       <div className="flex justify-between items-center">
@@ -17,11 +21,13 @@ export default function Library() {
         </IconButton>
       </div>
       <div className="mt-4 flex flex-col gap-2">
-        <HCard
-          title="Liked Songs"
-          Icon={<HeartIcon className="text-white" />}
-          subtitle="Playlist 100 songs"
-        />
+        <Link href="/liked">
+          <HCard
+            title="Liked Songs"
+            Icon={<HeartIcon className="text-white" />}
+            subtitle={`Playlist ${likedSongs.length} songs`}
+          />
+        </Link>
         <HCard
           title="Kitty songs"
           cover="https://loremflickr.com/80/80"

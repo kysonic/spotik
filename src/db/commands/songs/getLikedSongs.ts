@@ -10,7 +10,7 @@ export default async function getLikedSongs(id: string) {
     throw new Error('Cannot find user');
   }
 
-  const songs = await LikesDao.fundUserSongs(user.id);
+  const songs = await LikesDao.getUserSongs(user.id);
 
   return songs ?? [];
 }
