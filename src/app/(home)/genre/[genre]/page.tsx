@@ -1,6 +1,6 @@
 import SongList from '@/components/features/songs/SongList';
 import PlaylistHero from '@/components/ui/hero/PlaylistHero';
-import getCurrentUser from '@/actions/users/getCurrentUser';
+import getCurrentUser from '@/queries/users/getCurrentUser';
 import { getUserName } from '@/utils/user';
 import { countPlaylistLength, formatSongLength } from '@/utils/songs';
 import VolumeIcon from '@/components/ui/icons/VolumeIcon';
@@ -9,7 +9,7 @@ import {
   GENRE_STYLE_CONFIG,
   GenreStyleConfig,
 } from '@/components/features/mixes/Genre.config';
-import getByGenreAction from '@/actions/songs/getByGenre';
+import getByGenreAction from '@/queries/songs/getByGenre';
 
 export default async function GenrePage({
   params,

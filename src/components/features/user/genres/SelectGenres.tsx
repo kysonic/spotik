@@ -1,6 +1,6 @@
 import Heading from '@/components/ui/typography/Heading';
 import Subheading from '@/components/ui/typography/Subheading';
-import getGenres from '@/actions/songs/getGenres';
+import getGenres from '@/queries/songs/getGenres';
 import GenreSelector from './components/GenreSelector';
 
 export default async function SelectGenres() {

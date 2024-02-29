@@ -5,7 +5,7 @@ import { saveUserGenresSchema } from '@/validation/user';
 import { revalidateTag } from 'next/cache';
 import { auth } from '@clerk/nextjs';
 
-export default async function saveUserGenres(
+export default async function saveUserGenresAction(
   prevState: any,
   formData: FormData
 ) {

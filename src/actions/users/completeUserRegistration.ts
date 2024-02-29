@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache';
 import { clerkClient } from '@clerk/nextjs/server';
 import UsersDao from '@/db/dao/Users';
 
-const completeUserRegistration = async () => {
+const completeUserRegistrationAction = async () => {
   const { userId } = auth();
 
   const clerkUser = await clerkClient.users.getUser(userId ?? '');
@@ -24,4 +24,4 @@ const completeUserRegistration = async () => {
   revalidateTag('current_user');
 };
 
-export default completeUserRegistration;
+export default completeUserRegistrationAction;

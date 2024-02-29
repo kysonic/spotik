@@ -3,8 +3,8 @@ import SongList from '@/components/features/songs/SongList';
 import SongListSkeleton from '@/components/features/songs/SongListSkeleton';
 import PlaylistHero from '@/components/ui/hero/PlaylistHero';
 import NewIcon from '@/components/ui/icons/NewIcon';
-import getReleases from '@/actions/songs/getReleases';
-import getCurrentUser from '@/actions/users/getCurrentUser';
+import getReleases from '@/queries/songs/getReleases';
+import getCurrentUser from '@/queries/users/getCurrentUser';
 import { getUserName } from '@/utils/user';
 import { countPlaylistLength, formatSongLength } from '@/utils/songs';
 

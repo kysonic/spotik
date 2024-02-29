@@ -1,4 +1,4 @@
-import getCurrentUserAction from '@/actions/users/getCurrentUser';
+import getCurrentUserAction from '@/queries/users/getCurrentUser';
 import VCard from '@/components/ui/cards/VCard';
 import Greeting from '@/components/ui/content/Greeting';
 import NewIcon from '@/components/ui/icons/NewIcon';

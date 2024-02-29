@@ -18,19 +18,19 @@ export type UpdateAlbumsArgs = Partial<InsertAlbumsArgs> & {
 
 class AlbumsDao {
   static async find() {
-    const rows = await sql`SELECT * FROM albums;`;
+    const rows = await sql<Album[]>`SELECT * FROM albums;`;
 
     return rows;
   }
 
   static async findById(id: number) {
-    const rows = await sql`SELECT * FROM albums WHERE id = ${id};`;
+    const rows = await sql<Album[]>`SELECT * FROM albums WHERE id = ${id};`;
 
     return rows[0];
   }
 
   static async insert(fields: InsertAlbumsArgs) {
-    const rows = await sql`INSERT INTO albums ${sql(
+    const rows = await sql<Album[]>`INSERT INTO albums ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} RETURNING *`;
@@ -39,7 +39,7 @@ class AlbumsDao {
   }
 
   static async update(id: number, fields: UpdateAlbumsArgs) {
-    const rows = await sql`UPDATE albums SET ${sql(
+    const rows = await sql<Album[]>`UPDATE albums SET ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} WHERE id = ${id} RETURNING *`;
@@ -48,13 +48,15 @@ class AlbumsDao {
   }
 
   static async delete(id: number) {
-    const rows = await sql`DELETE FROM albums WHERE id = ${id} RETURNING *;`;
+    const rows = await sql<
+      Album[]
+    >`DELETE FROM albums WHERE id = ${id} RETURNING *;`;
 
     return rows[0];
   }
 
   static async count() {
-    const rows = await sql`SELECT COUNT(*) FROM albums;`;
+    const rows = await sql<{ count: string }[]>`SELECT COUNT(*) FROM albums;`;
 
     return parseInt(rows[0].count);
   }

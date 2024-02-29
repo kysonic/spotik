@@ -18,19 +18,19 @@ export type UpdateArtistsArgs = Partial<InsertArtistArgs> & {
 
 class ArtistsDao {
   static async find() {
-    const rows = await sql`SELECT * FROM artists;`;
+    const rows = await sql<Artist[]>`SELECT * FROM artists;`;
 
     return rows;
   }
 
   static async findById(id: number) {
-    const rows = await sql`SELECT * FROM artists WHERE id = ${id};`;
+    const rows = await sql<Artist[]>`SELECT * FROM artists WHERE id = ${id};`;
 
     return rows[0];
   }
 
   static async insert(fields: InsertArtistArgs) {
-    const rows = await sql`INSERT INTO artists ${sql(
+    const rows = await sql<Artist[]>`INSERT INTO artists ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} RETURNING *`;
@@ -39,7 +39,7 @@ class ArtistsDao {
   }
 
   static async update(id: number, fields: UpdateArtistsArgs) {
-    const rows = await sql`UPDATE artists SET ${sql(
+    const rows = await sql<Artist[]>`UPDATE artists SET ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} WHERE id = ${id} RETURNING *`;
@@ -48,13 +48,15 @@ class ArtistsDao {
   }
 
   static async delete(id: number) {
-    const rows = await sql`DELETE FROM artists WHERE id = ${id} RETURNING *;`;
+    const rows = await sql<
+      Artist[]
+    >`DELETE FROM artists WHERE id = ${id} RETURNING *;`;
 
     return rows[0];
   }
 
   static async count() {
-    const rows = await sql`SELECT COUNT(*) FROM artists;`;
+    const rows = await sql<{ count: string }[]>`SELECT COUNT(*) FROM artists;`;
 
     return parseInt(rows[0].count);
   }

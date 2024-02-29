@@ -1,4 +1,4 @@
-import getCurrentUser from '@/actions/users/getCurrentUser';
+import getCurrentUser from '@/queries/users/getCurrentUser';
 import Mixes from '@/components/features/mixes/Mixes';
 import SelectGenres from '@/components/features/user/genres/SelectGenres';
 

@@ -1,15 +1,21 @@
 import HCard from '@/components/ui/cards/HCard';
 import TableHeader from '@/components/ui/table/TableHeader';
 import TableRow from '@/components/ui/table/TableRow';
-import { ReleaseSongs } from '@/db/dao/Songs';
+import { SongsWithArtistAndAlbum } from '@/db/dao/Songs';
 import { formatSongLength, formatSongReleaseDate } from '@/utils/songs';
 import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
+import SongListLikeButton from './components/SongListLikeButton';
+import getLikedSongsAction from '@/queries/songs/getLikedSongs';
 
 export type SongListProps = {
-  songs: ReleaseSongs;
+  songs: SongsWithArtistAndAlbum;
 };
 
-export default function SongList({ songs = [] }: SongListProps) {
+export default async function SongList({ songs = [] }: SongListProps) {
+  const likes = await getLikedSongsAction()(); 
+
+  const likeIds = likes.map((like) => like.song_id);
+
   return (
     <div className="flex flex-col gap-1">
       <TableHeader
@@ -23,18 +29,19 @@ export default function SongList({ songs = [] }: SongListProps) {
             columns={[
               (index + 1).toString(),
               <HCard
-                key={song.id}
+                key={`song-${song.id}`}
                 title={song.title}
                 cover={song.cover}
                 subtitle={song.artist}
               />,
-              <div key={song.id} className="hidden sm:block">
+              <div key={`album-${song.id}`} className="hidden sm:block">
                 {song.album}
               </div>,
-              <div key={song.id} className="hidden sm:block">
+              <div key={`date-${song.id}`} className="hidden sm:block">
                 {formatSongReleaseDate(song.updated_at ?? new Date())}
               </div>,
-              <div key={song.id} className="hidden sm:block">
+              <SongListLikeButton key={`like-${song.id}`} id={song.id} isLiked={likeIds.includes(song.id)} />,
+              <div key={`length-${song.id}`} className="hidden sm:block">
                 {formatSongLength(song.length ?? 0)}
               </div>,
             ]}

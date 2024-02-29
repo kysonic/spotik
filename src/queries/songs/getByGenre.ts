@@ -1,10 +1,10 @@
 'use server';
-import getReleases from '@/db/commands/songs/getReleases';
+import getByGenre from '@/db/commands/songs/getByGenre';
 import { auth } from '@clerk/nextjs';
 import { unstable_cache } from 'next/cache';
 
 // export default getGenres;
-const getReleasesAction = () => {
+const getByGenreQuery = (genre: string) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -12,13 +12,13 @@ const getReleasesAction = () => {
   }
 
   return unstable_cache(
-    async () => getReleases(userId),
-    ['releases', userId.toString()],
+    async () => getByGenre(userId, genre),
+    ['genre-mix', userId.toString(), genre],
     {
-      tags: ['releases'],
+      tags: ['genre-mix'],
       revalidate: 60 * 60 * 24,
     }
   );
 };
 
-export default getReleasesAction;
+export default getByGenreQuery;

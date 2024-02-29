@@ -1,3 +1,4 @@
+import { ArrayElement } from '@/types/globals';
 import sql from '../client';
 import { Album } from './Albums';
 import { Artist } from './Artists';
@@ -26,19 +27,19 @@ export type SongsWithArtistAndAlbum = (Song & {
 })[];
 class SongsDao {
   static async find() {
-    const rows = await sql`SELECT * FROM songs;`;
+    const rows = await sql<Song[]>`SELECT * FROM songs;`;
 
     return rows;
   }
 
   static async findById(id: number) {
-    const rows = await sql`SELECT * FROM songs WHERE id = ${id};`;
+    const rows = await sql<Song[]>`SELECT * FROM songs WHERE id = ${id};`;
 
     return rows[0];
   }
 
   static async insert(fields: InsertSongsArgs) {
-    const rows = await sql`INSERT INTO songs ${sql(
+    const rows = await sql<Song[]>`INSERT INTO songs ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} RETURNING *`;
@@ -47,7 +48,7 @@ class SongsDao {
   }
 
   static async update(id: number, fields: UpdateSongsArgs) {
-    const rows = await sql`UPDATE songs SET ${sql(
+    const rows = await sql<Song[]>`UPDATE songs SET ${sql(
       fields,
       Object.keys(fields) as unknown as Readonly<keyof typeof fields>
     )} WHERE id = ${id} RETURNING *`;
@@ -56,41 +57,45 @@ class SongsDao {
   }
 
   static async delete(id: number) {
-    const rows = await sql`DELETE FROM songs WHERE id = ${id} RETURNING *;`;
+    const rows = await sql<
+      Song[]
+    >`DELETE FROM songs WHERE id = ${id} RETURNING *;`;
 
     return rows[0];
   }
 
   static async count() {
-    const rows = await sql`SELECT COUNT(*) FROM songs;`;
+    const rows = await sql<{ count: string }[]>`SELECT COUNT(*) FROM songs;`;
 
     return parseInt(rows[0].count);
   }
 
   static async getGenres() {
-    const rows = await sql`SELECT DISTINCT UNNEST(genres) FROM songs;`;
+    const rows = await sql<
+      { unnest: string }[]
+    >`SELECT DISTINCT UNNEST(genres) FROM songs;`;
 
     return rows;
   }
 
   static async getReleases({ genres = [] }: { genres: string[] }) {
-    const rows = await sql`
+    const rows = await sql<SongsWithArtistAndAlbum>`
       SELECT s.*, al.title as album, nickname as artist FROM songs as s 
       LEFT JOIN albums as al ON al.id = s.album_id
       LEFT JOIN artists as ar ON ar.id = al.artist_id
       WHERE genres && ${genres} ORDER BY s.updated_at DESC LIMIT 30;`;
 
-    return rows as unknown as SongsWithArtistAndAlbum;
+    return rows;
   }
 
   static async getByGenre({ genre }: { genre: string }) {
-    const rows = await sql`
+    const rows = await sql<SongsWithArtistAndAlbum>`
     SELECT s.*, al.title as album, nickname as artist FROM songs as s 
     LEFT JOIN albums as al ON al.id = s.album_id
     LEFT JOIN artists as ar ON ar.id = al.artist_id
     WHERE ${genre} = ANY(genres) ORDER BY s.plays_count DESC LIMIT 30;`;
 
-    return rows as unknown as SongsWithArtistAndAlbum;
+    return rows;
   }
 }
 
