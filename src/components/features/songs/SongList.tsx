@@ -1,19 +1,9 @@
 import HCard from '@/components/ui/cards/HCard';
-import ClockIcon from '@/components/ui/icons/ClockIcon';
 import TableHeader from '@/components/ui/table/TableHeader';
 import TableRow from '@/components/ui/table/TableRow';
 import { ReleaseSongs } from '@/db/dao/Songs';
 import { formatSongLength, formatSongReleaseDate } from '@/utils/songs';
-
-const SONGS_TABLE_HEAD_COLUMNS = [
-  '#',
-  'Title',
-  'Album',
-  'Date Added',
-  <ClockIcon key="icon" />,
-];
-
-const COLUMNS_CLASS = 'grid-cols-[50px_2fr_1fr_1fr_100px]';
+import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
 
 export type SongListProps = {
   songs: ReleaseSongs;
@@ -38,9 +28,15 @@ export default function SongList({ songs = [] }: SongListProps) {
                 cover={song.cover}
                 subtitle={song.artist}
               />,
-              song.album,
-              formatSongReleaseDate(song.updated_at ?? new Date()),
-              formatSongLength(song.length ?? 0),
+              <div key={song.id} className="hidden sm:block">
+                {song.album}
+              </div>,
+              <div key={song.id} className="hidden sm:block">
+                {formatSongReleaseDate(song.updated_at ?? new Date())}
+              </div>,
+              <div key={song.id} className="hidden sm:block">
+                {formatSongLength(song.length ?? 0)}
+              </div>,
             ]}
             className={COLUMNS_CLASS}
           />

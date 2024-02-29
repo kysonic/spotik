@@ -10,7 +10,7 @@ export default async function getReleases(id: string) {
     throw new Error('Cannot find user');
   }
 
-  // await new Promise((resolve) => setTimeout(resolve, 2000)); uncomment to test suspense
+  // await new Promise((resolve) => setTimeout(resolve, 2000)); // uncomment to test suspense
   const songs = await SongsDao.getReleases({ genres: user.genres ?? [] });
 
   return songs;

@@ -37,11 +37,11 @@ export default function PlaylistHero({
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1 sm:gap-2 justify-between">
         <Subheading className='text-start text-xs'>{`${type} playlist`}</Subheading>
-        <Heading className='text-start text-6xl'>{title}</Heading>
-        <Subheading className='text-start'>{subtitle}</Subheading>
-        <Subheading className='text-start text-sm text-bold'>{info}</Subheading>
+        <Heading className='text-start text-2xl sm:text-6xl'>{title}</Heading>
+        <Subheading className='text-start text-sm max-h-10 overflow-clip sm:max-h-auto sm:text-md'>{subtitle}</Subheading>
+        <Subheading className='text-start text-xs sm:text-sm text-bold'>{info}</Subheading>
       </div>
     </div>
   );

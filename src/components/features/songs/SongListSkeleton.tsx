@@ -4,16 +4,8 @@ import SkeletonRect from '@/components/ui/content/SkeletonRect';
 import ClockIcon from '@/components/ui/icons/ClockIcon';
 import TableHeader from '@/components/ui/table/TableHeader';
 import TableRow from '@/components/ui/table/TableRow';
+import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
 
-const SONGS_TABLE_HEAD_COLUMNS = [
-  '#',
-  'Title',
-  'Album',
-  'Date Added',
-  <ClockIcon key="icon" />,
-];
-
-const COLUMNS_CLASS = 'grid-cols-[50px_2fr_1fr_1fr_100px]';
 
 export default function SongList() {
   return (
@@ -29,9 +21,9 @@ export default function SongList() {
             columns={[
               <SkeletonRect key={index} />,
               <HCardSkeleton key={index} />,
-              <SkeletonRect key={index} />,
-              <SkeletonRect key={index} />,
-              <SkeletonRect key={index} />,
+              <SkeletonRect className='hidden sm:block' key={index} />,
+              <SkeletonRect className='hidden sm:block' key={index} />,
+              <SkeletonRect className='hidden sm:block' key={index} />,
             ]}
             className={COLUMNS_CLASS}
           />
