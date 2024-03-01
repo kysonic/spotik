@@ -7,6 +7,7 @@ export type InputProps = React.DetailedHTMLProps<
   label?: string;
   error?: string;
   className?: string;
+  hideError?: boolean;
 };
 
 export default function Input({
@@ -17,6 +18,7 @@ export default function Input({
   required,
   error,
   className,
+  hideError,
   ...rest
 }: InputProps) {
   return (
@@ -37,9 +39,11 @@ export default function Input({
         {...rest}
       />
 
-      <span role="alert" className="error static h-4">
-        {error}
-      </span>
+      {!hideError && (
+        <span role="alert" className="error static h-4">
+          {error}
+        </span>
+      )}
     </div>
   );
 }

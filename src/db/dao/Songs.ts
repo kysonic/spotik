@@ -98,6 +98,19 @@ class SongsDao {
 
     return rows;
   }
+
+  static async getBySearch({ query }: { query: string }) {
+    const rows = await sql<SongsWithArtistAndAlbum>`
+    SELECT s.*, al.title as album, nickname as artist FROM songs as s 
+    LEFT JOIN albums as al ON al.id = s.album_id
+    LEFT JOIN artists as ar ON ar.id = al.artist_id
+    WHERE s.title LIKE ${'%' + query + '%'} 
+    OR al.title LIKE ${'%' + query + '%'}
+    OR ar.nickname LIKE ${'%' + query + '%'}
+    ORDER BY s.plays_count DESC LIMIT 30;`;
+
+    return rows;
+  }
 }
 
 export default SongsDao;

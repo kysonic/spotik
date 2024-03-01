@@ -7,7 +7,7 @@ export type PlaylistHeroProps = {
   type: 'public' | 'private';
   title: string;
   subtitle: string;
-  info: string;
+  info?: string;
   cover?: string;
   Icon?: React.ReactNode;
   className?: string;
@@ -58,9 +58,11 @@ export default function PlaylistHero({
         <Subheading className="text-start text-sm max-h-10 overflow-clip sm:max-h-auto sm:text-md">
           {subtitle}
         </Subheading>
-        <Subheading className="text-start text-xs sm:text-sm text-bold">
-          {info}
-        </Subheading>
+        {info && (
+          <Subheading className="text-start text-xs sm:text-sm text-bold">
+            {info}
+          </Subheading>
+        )}
       </div>
     </div>
   );
