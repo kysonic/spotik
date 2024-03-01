@@ -34,11 +34,9 @@ export default function Input({
         aria-invalid={error ? 'true' : 'false'}
         {...rest}
       />
-      {error && (
-        <span role="alert" className="error static">
-          {error}
-        </span>
-      )}
+      <span role="alert" className="error static h-4">
+        {error}
+      </span>
     </div>
   );
 }

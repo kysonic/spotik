@@ -5,6 +5,7 @@ import { createPlaylistSchema } from '@/validation/playlist';
 import { revalidateTag } from 'next/cache';
 import { auth } from '@clerk/nextjs';
 import UsersDao from '@/db/dao/Users';
+import { redirect } from 'next/navigation';
 
 export default async function createPlaylistAction(
   prevState: any,
@@ -27,14 +28,16 @@ export default async function createPlaylistAction(
 
   const user = await UsersDao.findByExternalId(userId!);
 
-  await createPlaylist({
+  const playlist = await createPlaylist({
     title: rawFormData.title,
     description: rawFormData.description,
     user_id: user.id,
   });
 
   revalidateTag('playlists');
+  redirect(`playlist/${playlist.id}`);
 
+  // For TS
   return {
     errors: null,
   };

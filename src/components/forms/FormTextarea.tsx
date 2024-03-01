@@ -1,25 +1,25 @@
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
-import Input, { InputProps } from '@/components/ui/forms/Input';
+import Textarea, { TextareaProps } from '@/components/ui/forms/Textarea';
 
-export type FormInputProps<T extends FieldValues> = InputProps & {
+export type FormTextareaProps<T extends FieldValues> = TextareaProps & {
   control: Control<T>;
   name: FieldPath<T>;
   serverError?: string;
 };
 
-export default function FormInput<T extends FieldValues>({
+export default function FormTextarea<T extends FieldValues>({
   control,
   name,
   serverError,
   ...props
-}: FormInputProps<T>) {
+}: FormTextareaProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
         return (
-          <Input
+          <Textarea
             value={value || ''}
             onChange={onChange}
             error={serverError ?? error?.message}
