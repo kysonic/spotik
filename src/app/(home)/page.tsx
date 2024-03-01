@@ -4,6 +4,8 @@ import SelectGenres from '@/components/features/user/genres/SelectGenres';
 
 export default async function Home() {
   const user = await getCurrentUser()();
+
+  console.log(user, '<<<<user');
   
   return (
     <main className="h-full p-4">

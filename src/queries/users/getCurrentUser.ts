@@ -3,7 +3,7 @@ import getCurrentUser from '@/db/commands/users/getCurrentUser';
 import { unstable_cache } from 'next/cache';
 import { auth } from '@clerk/nextjs';
 
-const getCurrentUserAction = () => {
+const getCurrentUserQuery = () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -20,4 +20,4 @@ const getCurrentUserAction = () => {
   );
 };
 
-export default getCurrentUserAction;
+export default getCurrentUserQuery;

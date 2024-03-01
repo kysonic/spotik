@@ -57,6 +57,14 @@ class SongsDao {
     return rows[0];
   }
 
+  static async incrementSongPlays(id: number) {
+    const rows = await sql<
+      Song[]
+    >`UPDATE songs SET plays_count = plays_count + 1 WHERE id = ${id} RETURNING *`;
+
+    return rows[0];
+  }
+
   static async delete(id: number) {
     const rows = await sql<
       Song[]

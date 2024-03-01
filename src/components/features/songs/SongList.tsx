@@ -6,9 +6,11 @@ import { formatSongLength, formatSongReleaseDate } from '@/utils/songs';
 import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
 import SongListLikeButton from './components/SongListLikeButton';
 import SongListAddToPlaylist from './components/SongListAddToPlaylist';
+import SelectSongButton from './components/SelectSongButton';
 import getLikedSongsAction from '@/queries/songs/getLikedSongs';
 import Heading from '@/components/ui/typography/Heading';
 import { PlaylistNestedSongs } from '@/db/dao/Playlists';
+import getCurrentUserQuery from '@/queries/users/getCurrentUser';
 
 export type SongListProps = {
   songs: SongsWithArtistAndAlbum;
@@ -19,6 +21,7 @@ export default async function SongList({
   songs = [],
   playlist,
 }: SongListProps) {
+  const user = await getCurrentUserQuery()();
   const likes = await getLikedSongsAction()();
 
   const likeIds = likes.map((like) => like.song_id);
@@ -39,7 +42,14 @@ export default async function SongList({
           <TableRow
             key={song.id}
             columns={[
-              (index + 1).toString(),
+              <div key={`id-${song.id}`}>
+                <div className="block group-hover:hidden">
+                  {(index + 1).toString()}
+                </div>
+                <div className="hidden group-hover:block">
+                  <SelectSongButton key={`select-${song.id}`} id={song.id} />
+                </div>
+              </div>,
               <HCard
                 className="hover:bg-transparent"
                 key={`song-${song.id}`}
@@ -75,7 +85,9 @@ export default async function SongList({
                 {formatSongLength(song.length ?? 0)}
               </div>,
             ]}
-            className={COLUMNS_CLASS}
+            className={`${COLUMNS_CLASS} ${
+              user?.song.id === song.id ? 'bg-red-100' : ''
+            }`}
           />
         ))}
       </div>
