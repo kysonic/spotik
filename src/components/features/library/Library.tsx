@@ -3,11 +3,14 @@ import HCard from '@/components/ui/cards/HCard';
 import HeartIcon from '@/components/ui/icons/HeartIcon';
 import LibraryIcon from '@/components/ui/icons/LibraryIcon';
 import PlusIcon from '@/components/ui/icons/PlusIcon';
+import PlayIcon from '@/components/ui/icons/PlayIcon';
+import getUserPlaylistsQuery from '@/queries/playlists/getUserPlaylists';
 import getLikedSongsQuery from '@/queries/songs/getLikedSongs';
 import Link from 'next/link';
 
 export default async function Library() {
   const likedSongs = await getLikedSongsQuery()();
+  const playlists = await getUserPlaylistsQuery()();
 
   return (
     <div className="h-full p-4">
@@ -22,7 +25,7 @@ export default async function Library() {
           </IconButton>
         </Link>
       </div>
-      <div className="mt-4 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col">
         <Link href="/liked">
           <HCard
             title="Liked Songs"
@@ -30,11 +33,15 @@ export default async function Library() {
             subtitle={`Playlist ${likedSongs.length} songs`}
           />
         </Link>
-        <HCard
-          title="Kitty songs"
-          cover="https://loremflickr.com/80/80"
-          subtitle="Playlist 20 songs"
-        />
+        {playlists.map((playlist) => (
+          <Link key={playlist.id} href={`/playlist/${playlist.id}`}>
+            <HCard
+              title={playlist.title}
+              Icon={<PlayIcon className="text-white" />}
+              subtitle={playlist.description}
+            />
+          </Link>
+        ))}
       </div>
     </div>
   );

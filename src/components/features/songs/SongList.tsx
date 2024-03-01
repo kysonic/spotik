@@ -12,7 +12,7 @@ export type SongListProps = {
 };
 
 export default async function SongList({ songs = [] }: SongListProps) {
-  const likes = await getLikedSongsAction()(); 
+  const likes = await getLikedSongsAction()();
 
   const likeIds = likes.map((like) => like.song_id);
 
@@ -29,6 +29,7 @@ export default async function SongList({ songs = [] }: SongListProps) {
             columns={[
               (index + 1).toString(),
               <HCard
+                className="hover:bg-transparent"
                 key={`song-${song.id}`}
                 title={song.title}
                 cover={song.cover}
@@ -40,7 +41,11 @@ export default async function SongList({ songs = [] }: SongListProps) {
               <div key={`date-${song.id}`} className="hidden sm:block">
                 {formatSongReleaseDate(song.updated_at ?? new Date())}
               </div>,
-              <SongListLikeButton key={`like-${song.id}`} id={song.id} isLiked={likeIds.includes(song.id)} />,
+              <SongListLikeButton
+                key={`like-${song.id}`}
+                id={song.id}
+                isLiked={likeIds.includes(song.id)}
+              />,
               <div key={`length-${song.id}`} className="hidden sm:block">
                 {formatSongLength(song.length ?? 0)}
               </div>,

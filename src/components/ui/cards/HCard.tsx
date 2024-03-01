@@ -1,14 +1,16 @@
 import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
 export type HCardProps = {
   title: string;
   cover?: string;
   Icon?: React.ReactNode;
   subtitle?: string;
+  className?: string;
 };
-export default function HCard({ cover, title, Icon, subtitle }: HCardProps) {
+export default function HCard({ cover, title, Icon, subtitle, className }: HCardProps) {
   return (
-    <div className="flex gap-1 justify-start items-center">
+    <div className={twMerge('flex gap-1 justify-start items-center hover:bg-gray-50 p-2 rounded-md', className)}>
       <div className="rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
         {cover && (
           <Image

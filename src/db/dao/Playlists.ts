@@ -34,6 +34,14 @@ class PlaylistsDao {
     return rows[0];
   }
 
+  static async getByUserId(id: number) {
+    const rows = await sql<
+      Playlist[]
+    >`SELECT * FROM playlists WHERE user_id = ${id};`;
+
+    return rows;
+  }
+
   static async insert(fields: InsertPlaylistArgs) {
     const rows = await sql<Playlist[]>`INSERT INTO playlists ${sql(
       fields,
