@@ -5,13 +5,20 @@ import { SongsWithArtistAndAlbum } from '@/db/dao/Songs';
 import { formatSongLength, formatSongReleaseDate } from '@/utils/songs';
 import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
 import SongListLikeButton from './components/SongListLikeButton';
+import SongListAddToPlaylist from './components/SongListAddToPlaylist';
 import getLikedSongsAction from '@/queries/songs/getLikedSongs';
+import Heading from '@/components/ui/typography/Heading';
+import { PlaylistNestedSongs } from '@/db/dao/Playlists';
 
 export type SongListProps = {
   songs: SongsWithArtistAndAlbum;
+  playlist?: PlaylistNestedSongs | null;
 };
 
-export default async function SongList({ songs = [] }: SongListProps) {
+export default async function SongList({
+  songs = [],
+  playlist,
+}: SongListProps) {
   const likes = await getLikedSongsAction()();
 
   const likeIds = likes.map((like) => like.song_id);
@@ -23,6 +30,11 @@ export default async function SongList({ songs = [] }: SongListProps) {
         className={COLUMNS_CLASS}
       />
       <div className="flex flex-col gap-2">
+        {!songs.length && (
+          <div className="flex items-center justify-center p-10">
+            <Heading>Nothing here yet...</Heading>
+          </div>
+        )}
         {songs.map((song, index) => (
           <TableRow
             key={song.id}
@@ -41,11 +53,24 @@ export default async function SongList({ songs = [] }: SongListProps) {
               <div key={`date-${song.id}`} className="hidden sm:block">
                 {formatSongReleaseDate(song.updated_at ?? new Date())}
               </div>,
-              <SongListLikeButton
-                key={`like-${song.id}`}
-                id={song.id}
-                isLiked={likeIds.includes(song.id)}
-              />,
+              playlist ? (
+                <SongListAddToPlaylist
+                  key={`add-to-pl-${song.id}`}
+                  songId={song.id}
+                  playlistId={playlist?.id}
+                  isAdded={Boolean(
+                    playlist?.songs.find(
+                      (playlistSong) => playlistSong.id === song.id
+                    )
+                  )}
+                />
+              ) : (
+                <SongListLikeButton
+                  key={`like-${song.id}`}
+                  id={song.id}
+                  isLiked={likeIds.includes(song.id)}
+                />
+              ),
               <div key={`length-${song.id}`} className="hidden sm:block">
                 {formatSongLength(song.length ?? 0)}
               </div>,

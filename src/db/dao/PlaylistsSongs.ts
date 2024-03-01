@@ -32,6 +32,14 @@ class PlaylistsSongsDao {
     return rows[0];
   }
 
+  static async findByPlaylistAndSongId(playlist_id: number, song_id: number) {
+    const rows = await sql<
+      PlaylistsSongs[]
+    >`SELECT * FROM playlists_songs WHERE playlist_id = ${playlist_id} AND song_id = ${song_id};`;
+
+    return rows[0];
+  }
+
   static async insert(fields: InsertPlaylistsSongsArgs) {
     const rows = await sql<PlaylistsSongs[]>`INSERT INTO playlists_songs ${sql(
       fields,

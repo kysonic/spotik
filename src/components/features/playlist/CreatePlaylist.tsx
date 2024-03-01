@@ -34,14 +34,21 @@ export default function CreatePlaylist({
     resolver: zodResolver(createPlaylistSchema),
   });
 
-  const onSubmit: SubmitHandler<CreatePlaylistSchema> = (values) => {
-    formRef.current?.submit();
+  const onSubmit: SubmitHandler<CreatePlaylistSchema> = async (values) => {
+    formRef.current?.requestSubmit();
+
+    const formData = new FormData();
+    for (let entry of Object.entries(values)) {
+      formData.set(entry[0], entry[1]);
+    }
+
+    await formAction(formData);
   };
 
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <form ref={formRef} action={formAction} onSubmit={handleSubmit(onSubmit)}>
+    <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
       <div
         className={twMerge(
           'flex gap-6 w-full p-4 bg-gradient-to-t from-slate-100 to-slate-100',

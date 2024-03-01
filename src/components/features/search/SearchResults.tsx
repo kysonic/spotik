@@ -1,11 +1,13 @@
 import SongList from '@/components/features/songs/SongList';
+import { PlaylistNestedSongs } from '@/db/dao/Playlists';
 import getBySearchQuery from '@/queries/songs/getBySearch';
 
 export type SearchResultsProps = {
   query?: string;
+  playlist?: PlaylistNestedSongs | null;
 };
 
-export default async function SearchResults({ query }: SearchResultsProps) {
+export default async function SearchResults({ query, playlist }: SearchResultsProps) {
   if (!query) {
     return null;
   }
@@ -16,5 +18,5 @@ export default async function SearchResults({ query }: SearchResultsProps) {
     return null;
   }
 
-  return <SongList songs={songs} />;
+  return <SongList songs={songs} playlist={playlist} />;
 }

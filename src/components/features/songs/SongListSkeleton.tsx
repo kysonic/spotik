@@ -6,8 +6,11 @@ import TableHeader from '@/components/ui/table/TableHeader';
 import TableRow from '@/components/ui/table/TableRow';
 import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
 
+export type SongListSkeleton = {
+  length?: number;
+};
 
-export default function SongList() {
+export default function SongListSkeleton({ length = 10 }: SongListSkeleton) {
   return (
     <div className="flex flex-col gap-1">
       <TableHeader
@@ -15,15 +18,15 @@ export default function SongList() {
         className={COLUMNS_CLASS}
       />
       <div className="flex flex-col gap-2">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length }).map((_, index) => (
           <TableRow
             key={index}
             columns={[
               <SkeletonRect key={index} />,
               <HCardSkeleton key={index} />,
-              <SkeletonRect className='hidden sm:block' key={index} />,
-              <SkeletonRect className='hidden sm:block' key={index} />,
-              <SkeletonRect className='hidden sm:block' key={index} />,
+              <SkeletonRect className="hidden sm:block" key={index} />,
+              <SkeletonRect className="hidden sm:block" key={index} />,
+              <SkeletonRect className="hidden sm:block" key={index} />,
             ]}
             className={COLUMNS_CLASS}
           />
