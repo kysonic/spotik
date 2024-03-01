@@ -60,6 +60,17 @@ class ArtistsDao {
 
     return parseInt(rows[0].count);
   }
+
+  static async getForUser({ genres }: { genres: string[] }) {
+    const rows = await sql<Artist[]>`
+    SELECT DISTINCT ON (id) ar.*, s.plays_count FROM artists AS ar 
+    JOIN albums AS al ON al.artist_id = ar.id 
+    JOIN songs AS s ON al.id = s.album_id
+    WHERE s.genres && ${genres} LIMIT 5;;
+    `;
+
+    return rows;
+  }
 }
 
 export default ArtistsDao;
