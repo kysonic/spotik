@@ -10,7 +10,7 @@ export default async function Player() {
     <div className="flex flex-col justify-center items-center sm:flex-row sm:justify-between h-full w-full px-2">
       <div className="hidden sm:block">
         <HCard
-          title={`${user?.song.title!} (${user?.song.plays_count!})`}
+          title={user?.song.title ? `${user?.song.title} (${user?.song.plays_count})` : ''}
           cover={user?.song.cover}
           subtitle={user?.song.album}
         />
