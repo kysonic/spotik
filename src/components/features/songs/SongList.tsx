@@ -85,9 +85,8 @@ export default async function SongList({
                 {formatSongLength(song.length ?? 0)}
               </div>,
             ]}
-            className={`${COLUMNS_CLASS} ${
-              user?.song.id === song.id ? 'bg-red-100' : ''
-            }`}
+            className={COLUMNS_CLASS}
+            isActive={user?.song.id === song.id}
           />
         ))}
       </div>
