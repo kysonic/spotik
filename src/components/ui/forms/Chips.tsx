@@ -1,10 +1,12 @@
 'use client';
 
 import Chip from '../content/Chip';
+import { StyledIconProps } from '../icons/StyledIcon';
 
 export type ChipItem = {
   title: string;
   Icon?: React.ReactElement;
+  // Icon?: (props: StyledIconProps) => React.ReactElement;
 };
 
 export type ChipsProps = {

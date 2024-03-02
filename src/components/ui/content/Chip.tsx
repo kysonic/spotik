@@ -1,8 +1,10 @@
 import { twMerge } from 'tailwind-merge';
+import { StyledIconProps } from '../icons/StyledIcon';
 
 export type ChipProps = {
   children: React.ReactNode;
   Icon?: React.ReactElement;
+  // Icon?: (props: StyledIconProps) => React.ReactElement;
   isActive?: boolean;
   onClick?: () => void;
 };
@@ -22,7 +24,14 @@ export default function Chip({ children, Icon, isActive, onClick }: ChipProps) {
           className="inline-flex items-center p-1 ms-2 text-sm text-gray-400 bg-transparent rounded-sm"
           aria-label="Badge"
         >
-          <Icon.type {...Icon.props} className={isActive ? 'text-white' : ''} />
+          {/* <Icon className={isActive ? 'text-white' : ''} /> */}
+          <Icon.type
+            {...Icon.props}
+            className={twMerge(
+              Icon.props.className,
+              isActive ? 'text-white' : ''
+            )}
+          />
           <span className="sr-only">Icon badge</span>
         </button>
       )}

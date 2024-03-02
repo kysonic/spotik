@@ -16,17 +16,18 @@ export default async function GenrePage({
 }: {
   params: { genre: string };
 }) {
+  const genre = decodeURIComponent(params.genre);
   const user = await getCurrentUser()();
-  const releases = await getByGenreAction(params.genre)();
+  const releases = await getByGenreAction(genre)();
 
-  const genreStyleConfig = GENRE_STYLE_CONFIG[params.genre as GenreStyleConfig];
+  const genreStyleConfig = GENRE_STYLE_CONFIG[genre as GenreStyleConfig] ?? GENRE_STYLE_CONFIG.default;
 
   return (
     <main className="h-full">
       <PlaylistHero
         type="public"
-        title={`${params.genre} Mix`}
-        subtitle={`Catch all the latest music from artists you follow, ${params.genre} genres`}
+        title={`${genre} Mix`}
+        subtitle={`Catch all the latest music from artists you follow, ${genre} genres`}
         info={`Made for ${getUserName(user!)} • ${
           releases.length
         } songs • ${formatSongLength(countPlaylistLength(releases))}`}

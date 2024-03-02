@@ -49,6 +49,11 @@ export const GENRE_STYLE_CONFIG = {
     imageClassName: 'from-blue-500 to-slate-300 via-none',
     bg: 'from-blue-100',
   },
+  default: {
+    className: 'bg-gray-800',
+    imageClassName: 'from-gray-500 to-blue-300 via-none',
+    bg: 'from-gray-100',
+  },
 };
 
 export type GenreStyleConfig = keyof typeof GENRE_STYLE_CONFIG;

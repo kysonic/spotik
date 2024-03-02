@@ -15,7 +15,7 @@ const getCurrentUserQuery = () => {
     ['current_user', userId.toString()],
     {
       tags: ['current_user'],
-      revalidate: 1,
+      revalidate: 30,
     }
   );
 };
