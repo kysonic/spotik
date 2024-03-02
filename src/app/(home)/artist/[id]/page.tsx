@@ -31,7 +31,7 @@ export default async function ArtistPage({
           <div className="mt-2 flex flex-wrap gap-2 items-stretch">
             {artist.albums?.map((album) => (
               <Link
-                key={artist.id}
+                key={album.id}
                 href={`/album/${album.id}`}
                 className="inline-block self-stretch"
               >

@@ -18,4 +18,4 @@ export const SONGS_TABLE_HEAD_COLUMNS = [
 ];
 
 export const COLUMNS_CLASS =
-  'md:grid-cols-[50px_2fr_1fr_1fr_100px_100px] grid-cols-[50px_1fr_100px] group cursor-pointer rounded-md';
+  'md:grid-cols-[30px_2fr_1fr_1fr_100px_100px] grid-cols-[30px_1fr_100px] group cursor-pointer rounded-md';

@@ -18,7 +18,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <TopNav />
       </div>
       <div
-        className="hidden md:block mb-2 md:ml-2 md:mt-2 rounded-md bg-slate-100"
+        className="mb-2 md:ml-2 md:mt-2 rounded-md bg-slate-100"
         style={{ gridArea: 'sidenav' }}
       >
         <SearchNav />
@@ -33,7 +33,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         {children}
       </div>
       <div
-        className="fixed bottom-0 w-full h-[80px] bg-white"
+        className="fixed bottom-0 w-full h-[80px] bg-white z-10"
         style={{ gridArea: 'player' }}
       >
         <Player />

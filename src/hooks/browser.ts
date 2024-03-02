@@ -2,7 +2,7 @@ import { useMedia } from 'react-use';
 
 // TODO: Get breakpoints from tailwind
 export const useBreakpoints = () => {
-  const isMobile = useMedia('(max-width: 480px)');
+  const isMobile = useMedia('(max-width: 480px)', true);
 
   return { isMobile };
 };

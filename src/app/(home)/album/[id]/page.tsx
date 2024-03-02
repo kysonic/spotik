@@ -14,12 +14,13 @@ export default async function AlbumPage({
     <main className="h-full">
       <PlaylistHero
         type="public"
-        title={`${album.title} Mix`}
+        title={album.title}
         subtitle={`All ${album.title} songs here`}
         info={`Songs of ${album.title} • ${
           album.songs.length
         } songs • ${formatSongLength(countPlaylistLength(album.songs))}`}
         cover={album.cover}
+        imageClassName='bg-none'
       />
       <div className="h-[calc(100% - 200px)] bg-gradient-to-b from-purple-100 to-slate-100 pt-4">
         <SongList songs={album.songs} />

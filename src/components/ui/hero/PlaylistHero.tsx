@@ -38,13 +38,15 @@ export default function PlaylistHero({
         )}
       >
         {cover && (
-          <Image
-            className="rounded-md"
-            src={cover}
-            width={160}
-            height={160}
-            alt={title}
-          />
+          <div className="w-[140px] h-[140px] relative rounded-md">
+            <Image
+              className="rounded-md"
+              src={cover}
+              alt={title}
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
         )}
         {Icon && (
           <div className="w-[140px] h-[140px] flex items-center justify-center">

@@ -1,16 +1,15 @@
-import HCard from '@/components/ui/cards/HCard';
 import TableHeader from '@/components/ui/table/TableHeader';
 import TableRow from '@/components/ui/table/TableRow';
 import { SongsWithArtistAndAlbum } from '@/db/dao/Songs';
 import { formatSongLength, formatSongReleaseDate } from '@/utils/songs';
 import { COLUMNS_CLASS, SONGS_TABLE_HEAD_COLUMNS } from './SongList.config';
-import SongListLikeButton from './components/SongListLikeButton';
-import SongListAddToPlaylist from './components/SongListAddToPlaylist';
-import SelectSongButton from './components/SelectSongButton';
 import getLikedSongsAction from '@/queries/songs/getLikedSongs';
 import Heading from '@/components/ui/typography/Heading';
 import { PlaylistNestedSongs } from '@/db/dao/Playlists';
 import getCurrentUserQuery from '@/queries/users/getCurrentUser';
+import NumberColumn from './columns/NumberColumn';
+import SongColumn from './columns/SongColumn';
+import ActionColumn from './columns/ActionColumn';
 
 export type SongListProps = {
   songs: SongsWithArtistAndAlbum;
@@ -41,49 +40,42 @@ export default async function SongList({
         {songs.map((song, index) => (
           <TableRow
             key={song.id}
-            columns={[
-              <div key={`id-${song.id}`}>
-                <div className="block group-hover:hidden">
-                  {(index + 1).toString()}
-                </div>
-                <div className="hidden group-hover:block">
-                  <SelectSongButton key={`select-${song.id}`} id={song.id} />
-                </div>
-              </div>,
-              <HCard
-                className="hover:bg-transparent"
-                key={`song-${song.id}`}
-                title={song.title}
-                cover={song.cover}
-                subtitle={song.artist}
+            smColumns={[
+              <NumberColumn
+                key={`number-${song.id}`}
+                id={song.id}
+                index={index}
               />,
+              <SongColumn key={`song-${song.id}`} song={song} />,
               <div key={`album-${song.id}`} className="hidden sm:block">
                 {song.album}
               </div>,
               <div key={`date-${song.id}`} className="hidden sm:block">
                 {formatSongReleaseDate(song.updated_at ?? new Date())}
               </div>,
-              playlist ? (
-                <SongListAddToPlaylist
-                  key={`add-to-pl-${song.id}`}
-                  songId={song.id}
-                  playlistId={playlist?.id}
-                  isAdded={Boolean(
-                    playlist?.songs.find(
-                      (playlistSong) => playlistSong.id === song.id
-                    )
-                  )}
-                />
-              ) : (
-                <SongListLikeButton
-                  key={`like-${song.id}`}
-                  id={song.id}
-                  isLiked={likeIds.includes(song.id)}
-                />
-              ),
+              <ActionColumn
+                key={`action-${song.id}`}
+                playlist={playlist}
+                song={song}
+                likeIds={likeIds}
+              />,
               <div key={`length-${song.id}`} className="hidden sm:block">
                 {formatSongLength(song.length ?? 0)}
               </div>,
+            ]}
+            xsColumns={[
+              <NumberColumn
+                key={`number-${song.id}`}
+                id={song.id}
+                index={index}
+              />,
+              <SongColumn key={`song-${song.id}`} song={song} />,
+              <ActionColumn
+                key={`action-${song.id}`}
+                playlist={playlist}
+                song={song}
+                likeIds={likeIds}
+              />,
             ]}
             className={COLUMNS_CLASS}
             isActive={user?.song.id === song.id}
