@@ -82,9 +82,10 @@ NAME=init yarn db:seed
 
 Todo 
 
-- [] Register as an artist
-- [] Role system (Clerk)
-- [] Create album 
-- [] Create song
-- [] Enhanced user recommendations. Get data from users who also like genres or songs like you. (Recursive CTE)
-- [] Generate songs via AI, host them on S3 and stream to player. 
+- [ ] Register as an artist
+- [ ] Role system (Clerk)
+- [ ] Create album 
+- [ ] Create song
+- [ ] Enhanced user recommendations. Get data from users who also like genres or songs like you. (Recursive CTE)
+- [ ] Generate songs via AI, host them on S3 and stream to player. 
+- [ ] E2E (Cypress or Playwright or ...)
