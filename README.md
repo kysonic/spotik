@@ -77,3 +77,14 @@ To seed database, please execute following command
 export DATABASE_URL=postgres://spotikuser:potikpassword@localhost:5432/spotik?sslmode=disable
 NAME=init yarn db:seed
 ```
+
+## Contribution
+
+Todo 
+
+- [] Register as an artist
+- [] Role system (Clerk)
+- [] Create album 
+- [] Create song
+- [] Enhanced user recommendations. Get data from users who also like genres or songs like you. (Recursive CTE)
+- [] Generate songs via AI, host them on S3 and stream to player. 

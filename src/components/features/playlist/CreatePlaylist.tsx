@@ -35,7 +35,7 @@ export default function CreatePlaylist({
   });
 
   const onSubmit: SubmitHandler<CreatePlaylistSchema> = async (values) => {
-    formRef.current?.requestSubmit();
+    // formRef.current?.requestSubmit();
 
     const formData = new FormData();
     for (let entry of Object.entries(values)) {

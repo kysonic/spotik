@@ -33,7 +33,7 @@ export default function EmailPasswordSignInForm() {
 
     try {
       setIsLoading(true);
-      const result = await await signIn.create({
+      const result = await signIn.create({
         identifier: email,
         password,
       });
