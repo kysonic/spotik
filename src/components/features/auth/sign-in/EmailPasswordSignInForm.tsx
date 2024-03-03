@@ -24,7 +24,7 @@ export default function EmailPasswordSignInForm() {
 
   useEffect(() => {
     setFocus('email');
-  }, []);
+  }, [setFocus]);
 
   const onSubmit: SubmitHandler<SignInSchema> = async ({ email, password }) => {
     if (!isLoaded) {
