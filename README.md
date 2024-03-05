@@ -8,6 +8,8 @@ Stack: NextJS (App Router), Tailwind, Clerk, PostgreSQL (Without ORM for learnin
 - [Mockup](https://drive.google.com/file/d/1RV9lucqem-FvaCmgCpxtxNLJP7JhBqe8/view?usp=sharing)
 - [DB structure](https://dbdiagram.io/d/Spotik-65d617ac783e8c6ca517eb97)
 
+[EXPLANATION VIDEO (RUS)](https://youtu.be/FhNaSy4WpqY)
+
 ## Getting Started
 
 First, run the development server:
