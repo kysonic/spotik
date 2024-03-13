@@ -91,3 +91,4 @@ Todo
 - [ ] Enhanced user recommendations. Get data from users who also like genres or songs like you. (Recursive CTE)
 - [ ] Generate songs via AI, host them on S3 and stream to player. 
 - [ ] E2E (Cypress or Playwright or ...)
+- [ ] FSD? 
